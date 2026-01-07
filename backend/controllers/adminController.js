@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const jwt = require('jsonwebtoken');
 
 
 exports.login = (req, res) => {
@@ -22,9 +23,17 @@ exports.login = (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    const admin = result[0];
+
+    const token = jwt.sign(
+      { id: admin.id, username: admin.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
     res.json({
       message: 'Login successful',
-      admin: result[0]
+      token
     });
   });
 };

@@ -17,9 +17,13 @@ function Login() {
       password
     });
 
+    // ✅ 1. SAVE TOKEN HERE (VERY IMPORTANT)
+    localStorage.setItem('token', res.data.token);
+
+    // ✅ 2. Show message
     setMessage(res.data.message);
 
-    // ✅ Redirect after successful login
+    // ✅ 3. Redirect after login
     navigate('/customers');
 
   } catch (err) {

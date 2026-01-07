@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../services/api';
 import CustomerSearch from '../components/CustomerSearch';
 import CustomerTable from '../components/CustomerTable';
+import LogoutButton from '../components/LogoutButton';
 
 function Customers() {
   const [customers, setCustomers] = useState([]);
@@ -31,11 +32,21 @@ function Customers() {
 
   return (
     <div>
-      <h2>Customers</h2>
+
+      {/* HEADER */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '15px'
+      }}>
+        <h2>Customers</h2>
+        <LogoutButton />
+      </div>
 
       <CustomerSearch search={search} setSearch={setSearch} />
-
       <CustomerTable customers={customers} />
+
     </div>
   );
 }
