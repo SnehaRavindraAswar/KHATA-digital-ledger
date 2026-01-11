@@ -38,3 +38,17 @@ exports.getBalance = (req, res) => {
         res.json({ balance: result[0].balance || 0 });
     });
 };
+
+exports.deleteTransaction = (req, res) => {
+  const { id } = req.params;
+
+  db.query(
+    'DELETE FROM transaction WHERE transaction_id = ?',
+    [id],
+    (err) => {
+      if (err) return res.status(500).json({ message: 'DB error' });
+      res.json({ message: 'Transaction deleted' });
+    }
+  );
+};
+

@@ -25,11 +25,14 @@ app.use('/dashboard', auth, require('./routes/dashboard'));
 app.use('/admin/customers', customerRoutes);
 app.use('/customer', auth, require('./routes/customer'));
 
+app.use('/transaction', auth, require('./routes/transaction'));
+
+
 
 /* ===== TEST ROUTE ===== */
-// app.get('/test', (req, res) => {
-//   res.send('Backend working');
-// });
+app.get('/test', (req, res) => {
+  res.send('Backend working');
+});
 
 
 

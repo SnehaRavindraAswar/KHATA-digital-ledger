@@ -59,3 +59,42 @@ exports.searchCustomers = (req, res) => {
         res.json(result);
     });
 };
+
+// Get single customer by ID (Ledger page)
+exports.getCustomerById = (req, res) => {
+  const { id } = req.params;
+
+  const sql = 'SELECT * FROM customer WHERE customer_id = ?';
+
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'DB error' });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    res.json(result[0]);
+  });
+};
+
+// Get customer transactions
+exports.getCustomerTransactions = (req, res) => {
+    const { id } = req.params;
+
+    const sql = `
+        SELECT * FROM transaction
+        WHERE customer_id = ?
+        ORDER BY transaction_date DESC
+    `;
+
+    db.query(sql, [id], (err, result) => {
+        if (err) return res.status(500).json({ message: 'DB error' });
+        res.json(result);
+    });
+};
+
+
+
